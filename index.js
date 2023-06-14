@@ -25,7 +25,7 @@ const renderProyectiles = () => {
     if (projectile.y - projectile.radius > canvas.height) projectiles.splice(index, 1)
   })
 }
-const player = new Player({ ctx, x: innerWidth / 2, y: innerHeight / 2, radius: 30, color: 'red' })
+const player = new Player({ ctx, x: canvas.width / 2, y: canvas.height / 2, radius: 30, color: 'red' })
 
 
 
@@ -73,3 +73,10 @@ window.addEventListener('click', (e) => {
 })
 
 window.addEventListener('point', updatePoints)
+
+window.addEventListener('resize', function (event) {
+  canvas.width = this.innerWidth
+  canvas.height = this.innerHeight
+  player.x = this.innerWidth / 2
+  player.y = this.innerHeight / 2
+}, true);

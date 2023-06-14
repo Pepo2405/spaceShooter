@@ -1,7 +1,8 @@
 body {
   margin: 0;
-  background-color: red;
+  background-color: black;
   display: flex;
+  font-weight: bolder;
 }
 
 .inset-0 {
@@ -9,6 +10,17 @@ body {
   left: 0;
   right: 0;
   left: 0;
+}
+
+#pointsLabel {
+  font-size: 2rem;
+}
+
+.pointsContainer {
+  gap: 0.1rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 .header {
@@ -36,4 +48,64 @@ body {
 .flex-center {
   display: flex;
   justify-content: center;
+}
+
+/* Crear una capa de superposición para el efecto de pantalla curvada */
+.overlay {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Agregar una imagen de superposición para simular las líneas de escaneo */
+.overlay::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("./cubos.webp"); /* Ruta a una imagen de líneas de escaneo */
+  pointer-events: none;
+  opacity: 0.05; /* Ajustar la opacidad según se desee */
+  filter: brightness(1) invert();
+}
+
+/* Aplicar efectos adicionales para simular la apariencia de un monitor CRT */
+canvas {
+  /* filter: contrast(2.2) brightness(4) saturate(2.2); */
+  /* Ajustar los valores según se desee para obtener el efecto deseado */
+}
+.lvlLabel {
+  top: -1rem !important;
+  left: 50% !important;
+  transform: translate(-50%) !important;
+}
+.bar {
+  width: 0%;
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-5px);
+  }
+  40% {
+    transform: translateX(5px);
+  }
+  60% {
+    transform: translateX(-5px);
+  }
+  80% {
+    transform: translateX(5px);
+  }
+  100% {
+    /* filter: blur(1px); */
+    transform: translateX(0);
+  }
+}
+
+.shake {
+  animation: shake 0.5s;
 }

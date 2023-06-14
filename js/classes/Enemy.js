@@ -84,7 +84,7 @@ export const renderEnemies = ({ enemiesArr, projectiles, player }) => {
     enemy.draw()
     enemy.update()
     proyectileCollision({ projectiles, enemy, enemyIndex, enemiesArr })
-    playerCollision({ player, enemy })
+    playerCollision({ player, enemy: { ...enemy, index: enemyIndex }, enemiesArr })
   });
 }
 
@@ -105,10 +105,12 @@ const proyectileCollision = ({ projectiles, enemy, enemyIndex, enemiesArr }) => 
   })
 }
 
-const playerCollision = ({ player, enemy }) => {
+const playerCollision = ({ player, enemy, enemiesArr }) => {
   const distance = Math.hypot(player.x - enemy.x, player.y - enemy.y)
   if (distance - enemy.radius - player.radius < 1) {
     // alert("nooooo")
+    player.radius -= 1
+    enemiesArr.splice(enemy.index, 1)
   }
 }
 

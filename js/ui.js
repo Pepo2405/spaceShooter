@@ -5,13 +5,13 @@ export const updateLvlLabel = (lvl) => {
 
 const lvlMeter = document.querySelector('#lvl_id')
 export const updateLvlMeter = ({ total, xp }) => {
-  console.log("expe", xp / 100)
-  lvlMeter.value = xp / total
+  console.log(lvlMeter)
+  console.log(lvlMeter.width)
+  lvlMeter.style = [`width:${xp / total * 100}%;`]
 }
 let points = 0
 const pointsLabel = document.querySelector('#pointsLabel')
 export const updatePoints = () => {
-  console.log("sexooooo")
   points += 5
   pointsLabel.innerHTML = points
 }

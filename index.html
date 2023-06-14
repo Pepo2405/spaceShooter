@@ -6,24 +6,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Jogo</title>
 </head>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/98mprice/PSone.css@master/PSone.min.css">
 <link rel="stylesheet" href="styles.css">
 
 <body>
-  <canvas></canvas>
-  <div class="header inset-0">
-    <div>
-      <span>
-        Puntos
-      </span>
-      <span id="pointsLabel">
-        0
-      </span>
+  <div class="overlay">
+    <canvas></canvas>
+    <div class="header inset-0">
+      <div class="flex pointsContainer">
+        <span>
+          Puntos
+        </span>
+
+        <span id="pointsLabel">
+          0
+        </span>
+      </div>
+      <div class="flex column items-center" style="padding:1rem;">
+        <!-- <meter  value="0.5">60%</meter> -->
+        <div style="flex-grow:1;width:10rem;" class="progress success">
+          <div class="subtitle lvlLabel" id="lvlLabel">Lvl 1</div>
+          <div class="bar" id="lvl_id"></div>
+        </div>
+      </div>
+      <div></div>
     </div>
-    <div class="flex column items-center">
-      <label for="lvl_id" id="lvlLabel">Nivel D:</label>
-      <meter id="lvl_id" value="0.5">60%</meter>
-    </div>
-    <div></div>
+
   </div>
 </body>
 <script src="index.js" type="module"></script>
