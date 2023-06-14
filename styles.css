@@ -1,0 +1,39 @@
+body {
+  margin: 0;
+  background-color: red;
+  display: flex;
+}
+
+.inset-0 {
+  top: 0;
+  left: 0;
+  right: 0;
+  left: 0;
+}
+
+.header {
+  position: fixed;
+  display: flex;
+  color: white;
+  justify-content: space-around;
+  padding-top: 1rem;
+  font-size: 1.2rem;
+  user-select: none;
+}
+
+.flex {
+  display: flex;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.column {
+  flex-direction: column;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+}
