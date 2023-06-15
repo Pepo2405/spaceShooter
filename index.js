@@ -2,6 +2,7 @@ import { updateLvlLabel, updateLvlMeter, updatePoints } from './js/ui.js'
 import { Player } from './js/classes/Player.js'
 import { Proyectile } from './js/classes/Proyectile.js'
 import { renderEnemies, spawnEnemies } from './js/classes/Enemy.js'
+import { renderParticles } from './js/classes/Particle.js'
 
 const canvas = document.querySelector('canvas')
 canvas.width = innerWidth
@@ -35,11 +36,12 @@ function animate() {
   player.draw()
   requestAnimationFrame(animate)
   renderProyectiles()
-  renderEnemies({ enemiesArr, projectiles, player })
+  renderEnemies({ enemiesArr, projectiles, player, particles })
+  renderParticles({ particles })
 
 }
 animate()
-spawnEnemies({ ctx, enemiesArr, canvas })
+spawnEnemies({ ctx, enemiesArr, canvas, })
 
 window.addEventListener('xp', (xp) => {
   player.gainXp(xp.detail)

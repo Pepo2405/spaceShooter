@@ -79,16 +79,16 @@ export function spawnEnemies({ ctx, enemiesArr, canvas }) {
   }, 800);
 }
 
-export const renderEnemies = ({ enemiesArr, projectiles, player }) => {
+export const renderEnemies = ({ enemiesArr, projectiles, player, particles }) => {
   enemiesArr.forEach((enemy, enemyIndex) => {
     enemy.draw()
     enemy.update()
-    proyectileCollision({ projectiles, enemy, enemyIndex, enemiesArr })
+    proyectileCollision({ projectiles, enemy, enemyIndex, enemiesArr, particles })
     playerCollision({ player, enemy: { ...enemy, index: enemyIndex }, enemiesArr })
   });
 }
 
-const proyectileCollision = ({ projectiles, enemy, enemyIndex, enemiesArr }) => {
+const proyectileCollision = ({ projectiles, enemy, enemyIndex, enemiesArr, particles }) => {
   projectiles.forEach((projectile, i) => {
     const distance = Math.hypot(projectile.x - enemy.x, projectile.y - enemy.y)
     if (distance - enemy.radius - projectile.radius < 1) {
@@ -98,7 +98,7 @@ const proyectileCollision = ({ projectiles, enemy, enemyIndex, enemiesArr }) => 
         enemy.radius -= 10
         return
       }
-      deleteEnemy({ enemy, enemyIndex, enemiesArr, projectiles, projectile })
+      deleteEnemy({ enemy, enemyIndex, enemiesArr, projectiles, projectile, particles })
       projectiles.splice(i, 1)
       projectile.playerUpgrade()
     }
@@ -114,12 +114,22 @@ const playerCollision = ({ player, enemy, enemiesArr }) => {
   }
 }
 
-const deleteEnemy = ({ enemy, enemyIndex, projectiles, enemiesArr, projectile }) => {
+const deleteEnemy = ({ enemy, enemyIndex, projectiles, enemiesArr, particles, projectile }) => {
   for (let i = 0; i < 8; i++) {
-    projectiles.push(new Particle({ x: projectile.x, y: projectile.y, color: enemy.color, radius: 5, velocity: { x: (Math.random() - .5) * 2, y: (Math.random() - .5) * 2 }, ctx: enemy.ctx }))
+    particles?.push(
+      new Particle({
+        x: projectile.x,
+        y: projectile.y,
+        color: enemy.color,
+        radius: 2,
+        velocity: {
+          x: (Math.random() - .5) * Math.random() * 8,
+          y: (Math.random() - .5) * Math.random() * 8
+        },
+        ctx: enemy.ctx
+      }))
   }
   enemy.giveXp(15)
   enemy.die()
   enemiesArr.splice(enemyIndex, 1)
-
 }

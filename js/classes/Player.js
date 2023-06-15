@@ -9,6 +9,7 @@ export class Player {
     this.bulletSize = 5;
     this.xp = 0;
     this.lvl = 1;
+
   }
   draw() {
     this.ctx.beginPath()
@@ -41,7 +42,6 @@ export class Player {
   }
 
   lvlUp() {
-    console.log(`lvl up ${this.lvl}`)
     this.lvl += 1;
     this.dmg += 2;
     this.xp = 0;

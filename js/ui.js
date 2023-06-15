@@ -5,8 +5,6 @@ export const updateLvlLabel = (lvl) => {
 
 const lvlMeter = document.querySelector('#lvl_id')
 export const updateLvlMeter = ({ total, xp }) => {
-  console.log(lvlMeter)
-  console.log(lvlMeter.width)
   lvlMeter.style = [`width:${xp / total * 100}%;`]
 }
 let points = 0
