@@ -5,6 +5,8 @@ import { renderEnemies, spawnEnemies } from './js/classes/Enemy.js'
 import { renderParticles } from './js/classes/Particle.js'
 
 
+const startBtn = document.querySelector('#startBtn')
+
 const MOVEMENT_SPEED = 3
 
 const canvas = document.querySelector('canvas')
@@ -20,9 +22,9 @@ const keys = {
 }
 
 
-const projectiles = []
-const enemiesArr = []
-const particles = []
+let projectiles = []
+let enemiesArr = []
+let particles = []
 
 
 const renderProyectiles = () => {
@@ -55,7 +57,6 @@ function startGame() {
   spawnEnemies({ ctx, enemiesArr, canvas, player })
 }
 
-startGame()
 
 
 // Shoot the laser!
@@ -81,7 +82,11 @@ setInterval(() => {
 
 
 
-
+startBtn.addEventListener('click', () => {
+  startGame()
+  const container = document.querySelector('#startContainer')
+  container.className = 'hidden'
+})
 
 
 
@@ -94,6 +99,8 @@ window.addEventListener('xp', (xp) => {
   // if (this.xp > this.lvl * 100 / 2) this.lvlUp()
 
 })
+
+
 
 window.addEventListener('playerUpgrade', () => {
   player.upgrade()
@@ -130,6 +137,22 @@ window.addEventListener('click', (e) => {
 })
 
 
+window.addEventListener('keydown', (e) => {
+  if (e.key === ' ') { // Barra espaciadora
+    paused = !paused;
+    if (paused) {
+      cancelAnimationFrame(animationid); // Pausar la animación del juego
+    } else {
+      animate(); // Reanudar la animación del juego
+    }
+  } else if (e.key === 'Escape') {
+    paused = true;
+    cancelAnimationFrame(animationid); // Pausar la animación del juego
+  }
+});
+
+let paused = false;
+// if (paused) return
 
 window.addEventListener('point', updatePoints)
 
@@ -174,18 +197,4 @@ window.addEventListener('keyup', (e) => {
   }
 })
 
-let paused = false;
 
-window.addEventListener('keydown', (e) => {
-  if (e.key === ' ') { // Barra espaciadora
-    paused = !paused;
-    if (paused) {
-      cancelAnimationFrame(animationid); // Pausar la animación del juego
-    } else {
-      animate(); // Reanudar la animación del juego
-    }
-  } else if (e.key === 'Escape') {
-    paused = true;
-    cancelAnimationFrame(animationid); // Pausar la animación del juego
-  }
-});

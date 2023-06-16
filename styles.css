@@ -73,14 +73,37 @@ body {
 }
 
 /* Aplicar efectos adicionales para simular la apariencia de un monitor CRT */
-canvas {
+.startMenuContainer {
   /* filter: contrast(2.2) brightness(4) saturate(2.2); */
   /* Ajustar los valores según se desee para obtener el efecto deseado */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60vw;
+  height: 25vw;
+  /* max-width: 60vw; */
+  /* max-height: 45vw; */
+  /* padding: 1rem; */
+  color: #09a !important;
 }
+
+.startMenuContainer > h1 {
+  color: rgb(250, 254, 255) !important;
+  filter: drop-shadow(0px 0px 10px #000);
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
 .lvlLabel {
   top: 2rem !important;
   left: 50% !important;
   transform: translate(-50%) !important;
+}
+.startBtn {
+  /* scale: 2; */
+  font-size: 2rem;
 }
 
 .bar {
@@ -111,4 +134,8 @@ canvas {
 
 .shake {
   animation: shake 0.5s;
+}
+
+.hidden {
+  display: none !important;
 }
