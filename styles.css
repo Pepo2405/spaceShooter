@@ -78,10 +78,11 @@ canvas {
   /* Ajustar los valores según se desee para obtener el efecto deseado */
 }
 .lvlLabel {
-  top: -1rem !important;
+  top: 2rem !important;
   left: 50% !important;
   transform: translate(-50%) !important;
 }
+
 .bar {
   width: 0%;
 }

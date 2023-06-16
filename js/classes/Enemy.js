@@ -36,47 +36,54 @@ export class Enemy {
   }
 }
 
-export function spawnEnemies({ ctx, enemiesArr, canvas }) {
-  let timer = 2000
+export function spawnEnemies({ ctx, enemiesArr, canvas, player }) {
+  let timer = 1500
+  let amountSpawn = 3
   setInterval(() => {
-    if (timer > 500) {
-      timer -= 2
-    }
-    const radius = Math.floor(Math.random() * (45 - 15) + 15);
-    let x;
-    let y;
-    if (Math.random() < 0.5) {
-      x = Math.random() < 0.5 ? 0 - radius : canvas.width + radius;
-      y = Math.random() * canvas.height;
+    if (timer > 50) {
+      timer -= 200
     } else {
-      x = Math.random() * canvas.width;
-      y = Math.random() < 0.5 ? 0 - radius : canvas.height + radius;
+      timer = 2000
+      amountSpawn += 1
     }
-    const neonColors = [
-      "#ff6eff", // Neon pink
-      "#ff83ff", // Neon purple
-      "#00ff8c", // Neon green
-      "#00fff5", // Neon blue
-      "#fffd00", // Neon yellow
-      "#ffbe0b", // Neon orange
-      "#ff2c00", // Neon red
-      "#c900ff", // Neon violet
-      "#00ff8c", // Neon cyan
-      "#ff00e7", // Neon magenta
-    ];
 
-    const color = neonColors[Math.floor(Math.random() * neonColors.length)];
+    for (let i = 0; i < amountSpawn; i++) {
+      const radius = Math.floor(Math.random() * (45 - 15) + 15);
+      let x;
+      let y;
+      if (Math.random() < 0.5) {
+        x = Math.random() < 0.5 ? 0 - radius : canvas.width + radius;
+        y = Math.random() * canvas.height;
+      } else {
+        x = Math.random() * canvas.width;
+        y = Math.random() < 0.5 ? 0 - radius : canvas.height + radius;
+      }
+      const neonColors = [
+        "#ff6eff", // Neon pink
+        "#ff83ff", // Neon purple
+        "#00ff8c", // Neon green
+        "#00fff5", // Neon blue
+        "#fffd00", // Neon yellow
+        "#ffbe0b", // Neon orange
+        "#ff2c00", // Neon red
+        "#c900ff", // Neon violet
+        "#00ff8c", // Neon cyan
+        "#ff00e7", // Neon magenta
+      ];
 
-    const angle = Math.atan2(
-      canvas.height / 2 - y,
-      canvas.width / 2 - x
-    );
+      const color = neonColors[Math.floor(Math.random() * neonColors.length)];
 
-    const velocity = { x: Math.cos(angle) * .8, y: Math.sin(angle) * .8 };
+      const angle = Math.atan2(
+        player.y - y,
+        player.x - x
+      );
 
-    const enemy = new Enemy({ ctx, x, y, radius, color, velocity });
-    enemiesArr.push(enemy);
-  }, 800);
+      const velocity = { x: Math.cos(angle) * .8, y: Math.sin(angle) * .8 };
+
+      const enemy = new Enemy({ ctx, x, y, radius, color, velocity });
+      enemiesArr.push(enemy);
+    }
+  }, timer);
 }
 
 export const renderEnemies = ({ enemiesArr, projectiles, player, particles }) => {
@@ -85,6 +92,11 @@ export const renderEnemies = ({ enemiesArr, projectiles, player, particles }) =>
     enemy.update()
     proyectileCollision({ projectiles, enemy, enemyIndex, enemiesArr, particles })
     playerCollision({ player, enemy: { ...enemy, index: enemyIndex }, enemiesArr })
+
+    if (enemy.x - enemy.radius < 0) enemiesArr.splice(enemyIndex, 1)
+    if (enemy.y - enemy.radius < 0) enemiesArr.splice(enemyIndex, 1)
+    if (enemy.x - enemy.radius > innerWidth) enemiesArr.splice(enemyIndex, 1)
+    if (enemy.y - enemy.radius > innerHeight) enemiesArr.splice(enemyIndex, 1)
   });
 }
 
@@ -123,6 +135,7 @@ const playerCollision = ({ player, enemy, enemiesArr }) => {
     });
 
     sound.play();
+
     player.radius -= 1
     enemiesArr.splice(enemy.index, 1)
   }
