@@ -4,6 +4,8 @@ import { Proyectile } from './js/classes/Proyectile.js'
 import { renderEnemies, spawnEnemies } from './js/classes/Enemy.js'
 import { renderParticles } from './js/classes/Particle.js'
 
+
+
 const canvas = document.querySelector('canvas')
 canvas.width = innerWidth
 canvas.height = innerHeight
@@ -56,6 +58,15 @@ window.addEventListener('playerUpgrade', () => {
 })
 
 window.addEventListener('click', (e) => {
+
+  var sound = new Howl({
+    src: ['./sounds/sound.mp3'],
+    volume: 0.04,
+
+  });
+
+  sound.play();
+
   const createBullet = () => {
     const angle = Math.atan2(
       e.clientX - canvas.width / 2,
@@ -82,3 +93,7 @@ window.addEventListener('resize', function (event) {
   player.x = this.innerWidth / 2
   player.y = this.innerHeight / 2
 }, true);
+
+
+
+// Shoot the laser!

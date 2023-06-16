@@ -93,6 +93,13 @@ const proyectileCollision = ({ projectiles, enemy, enemyIndex, enemiesArr, parti
     const distance = Math.hypot(projectile.x - enemy.x, projectile.y - enemy.y)
     if (distance - enemy.radius - projectile.radius < 1) {
       projectiles.splice(i, 1)
+      var sound = new Howl({
+        src: ['./sounds/hit.wav'],
+        volume: 0.04,
+
+      });
+
+      sound.play();
       if (enemy.radius >= 15) {
         enemy.giveXp(10)
         enemy.radius -= 10
@@ -109,12 +116,26 @@ const playerCollision = ({ player, enemy, enemiesArr }) => {
   const distance = Math.hypot(player.x - enemy.x, player.y - enemy.y)
   if (distance - enemy.radius - player.radius < 1) {
     // alert("nooooo")
+    var sound = new Howl({
+      src: ['./sounds/impact.wav'],
+      volume: 0.04,
+
+    });
+
+    sound.play();
     player.radius -= 1
     enemiesArr.splice(enemy.index, 1)
   }
 }
 
 const deleteEnemy = ({ enemy, enemyIndex, projectiles, enemiesArr, particles, projectile }) => {
+  var sound = new Howl({
+    src: ['./sounds/explosion.mp3'],
+    volume: 0.2,
+
+  });
+
+  sound.play();
   for (let i = 0; i < 8; i++) {
     particles?.push(
       new Particle({
